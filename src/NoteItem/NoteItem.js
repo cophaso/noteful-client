@@ -1,17 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-// import NotePage from '../NotePage/NotePage';
+import { format } from 'date-fns';
+import './NoteItem.css';
 
-class NoteItem extends Component {
-  render(){
-    return(
-      <li className='note-item'>
-        <Link to={`/note/${this.props.id}`} >
-          {this.props.name}
+
+function NoteItem(props) {
+  return(
+    <li className='Note__Item' key={props.id}>
+      <h2 className='Note__title'>
+        <Link to={`/note/${props.id}`} >
+          {props.name}
         </Link>
-      </li>
-    )
-  }
+      </h2>
+      <button className='Note__delete' type='button'>
+        remove
+      </button>
+      <div className='Note__dates'>
+        <div className='Note__dates-modified'>
+          Modified
+          {' '}
+          <span className='Date'>
+            {format(props.modified, 'Do MMM YYYY')}
+          </span>
+        </div>
+      </div>
+    </li>
+  )
 }
 
 export default NoteItem

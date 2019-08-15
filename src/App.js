@@ -5,6 +5,9 @@ import NoteList from './NoteList/NoteList';
 import FolderListNav from './FolderListNav/FolderListNav';
 import './App.css';
 import NotefulContext from './NotefulContext';
+import AddFolder from './AddFolder/AddFolder';
+import NotePageNav from './NotePageNav/NotePageNav';
+import AddNote from './AddNote/AddNote';
 
 class App extends Component {
   state = {
@@ -40,42 +43,75 @@ class App extends Component {
     });
   };
 
+  handleAddFolder = folder => {
+    this.setState({
+      folders: [...this.state.folders, folder],
+    })
+  }
+
+  handleAddNote = note => {
+    this.setState({
+      notes: [...this.state.notes, note]
+    })
+  }
+
   render(){
     const contextValue = {
       notes: this.state.notes,
       folders: this.state.folders,
-      deleteNote: this.handleDeleteNote
+      deleteNote: this.handleDeleteNote,
+      addFolder: this.handleAddFolder,
+      addNote: this.handleAddNote
     }
     return (
       <div className="App">
-        {console.log(contextValue)}
         <NotefulContext.Provider value={contextValue}>
-          <nav className="App__nav">
-          {['/', '/folder/:folderId'].map(path => (
-            <Route
-              exact
-              key={path}
-              path={path}
-              component={FolderListNav}
-            />
-          ))}      
+          <nav className="App__nav" aria-live='polite'>
+            <Switch>
+              {['/', '/folder/:folderId'].map(path => (
+                <Route
+                  exact
+                  key={path}
+                  path={path}
+                  component={FolderListNav}
+                />
+              ))}
+              {['/add-folder', '/add-note', '/note/:id'].map(path => (
+                <Route 
+                  exact 
+                  key={path}
+                  path={path}
+                  component={NotePageNav}
+                />
+              ))}
+            </Switch>     
           </nav>
           <header className="App__header">
             <h1><Link to='/'>Noteful</Link></h1>
           </header>
-          <main className="App__main">
+          <main className="App__main" aria-live='polite'>
             <Switch>
-              <Route 
-                exact path='/' 
-                component={NoteList}
-              />
+              {['/', '/folder/:folderId'].map(path => (
+                <Route 
+                  exact 
+                  key={path}
+                  path={path}
+                  component={NoteList}
+                />
+              ))}
               <Route 
                 path='/note/:id'
                 component={NotePage}
               />
               <Route
-                exact path={'/folder/:folderId'}
-                component={NoteList}
+                exact
+                path='/add-folder'
+                component={AddFolder}
+              />
+              <Route
+                exact
+                path='/add-note'
+                component={AddNote}
               />
             </Switch>  
           </main>

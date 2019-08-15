@@ -1,20 +1,25 @@
-import React from 'react'
-import './NotePageNav.css'
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import './NotePageNav.css';
 
-export default function NotePageNav(props) {
+export default function NotePageNav() {
+  // static defaultProps = {
+  //   history: {
+  //     goBack: () => { }
+  //   }
+  // }
+  
   return (
     <div className='NotePageNav'>
-      {props.folder && (
-        <h3 className='NotePageNav__folder-name'>
-          {props.folder.name}
-        </h3>
-      )}
+      <div className='NotePageNav__back'>
+        <NavLink
+          to='/'
+          type='button'
+          className='NotePageNav__back-button'
+        >
+          Back
+        </NavLink>
+      </div>
     </div>
   )
-}
-
-NotePageNav.defaultProps = {
-  history: {
-    goBack: () => {}
-  }
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import NotefulContext from '../NotefulContext';
 import './FolderListNav.css';
+import PropTypes from 'prop-types';
 
 const countNotesForFolder = (notes=[], folderId) =>
   notes.filter(note => note.folderId === folderId).length
@@ -36,6 +37,20 @@ class FolderListNav extends Component {
       </div>
     </div>
   )}
+}
+
+FolderListNav.propTypes ={
+  folders: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
+  })),
+  notes: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    modified: PropTypes.string.isRequired,
+    folderId: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired
+  }))
 }
 
 export default FolderListNav;

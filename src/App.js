@@ -100,6 +100,8 @@ class App extends Component {
                 />
               ))}
               <Route 
+                exact
+                key='/note/:id'
                 path='/note/:id'
                 component={NotePage}
               />

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import NotefulContext from '../NotefulContext';
 import './AddFolder.css';
+import PropTypes from 'prop-types';
 
 class AddFolder extends Component{
   static defaultProps = {
@@ -43,7 +44,7 @@ class AddFolder extends Component{
         <form className="AddFolder__form" onSubmit={this.handleSubmit}>
           <div className="AddFolder__field">
             <label htmlFor="AddFolder__name-input">Name</label>
-            <input type="text" id="name" name='folder-name'/>
+            <input type="text" id="name" name='folder-name' required/>
           </div>
           <div className="AddFolder__button">
             <button type="submit">Add folder</button>
@@ -54,4 +55,10 @@ class AddFolder extends Component{
   }
 }
 
+AddFolder.propTypes ={
+  folders: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired
+  }))
+}
 export default AddFolder; 

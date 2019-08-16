@@ -3,11 +3,14 @@ import { Link } from 'react-router-dom';
 import { format } from 'date-fns';
 import './NoteItem.css';
 import NotefulContext from '../NotefulContext';
+import PropTypes from 'prop-types';
+
 
 
 class NoteItem extends Component {
   static defaultProps ={
     onDeleteNote: () => {},
+    notes: []
   }
   static contextType = NotefulContext;
 
@@ -63,6 +66,16 @@ class NoteItem extends Component {
       </li>
     )
   }
+}
+
+NoteItem.propTypes ={
+  notes: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
+    modified: PropTypes.string.isRequired,
+    folderId: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired
+  }))
 }
 
 export default NoteItem

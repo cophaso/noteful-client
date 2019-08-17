@@ -2,18 +2,12 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './NotePageNav.css';
 
-export default function NotePageNav() {
-  // static defaultProps = {
-  //   history: {
-  //     goBack: () => { }
-  //   }
-  // }
-  
+export default function NotePageNav(props) {
   return (
     <div className='NotePageNav'>
       <div className='NotePageNav__back'>
         <NavLink
-          to='/'
+          onClick={() => props.history.goBack()}
           type='button'
           className='NotePageNav__back-button'
         >
@@ -22,4 +16,10 @@ export default function NotePageNav() {
       </div>
     </div>
   )
+}
+
+NotePageNav.defaultProps = {
+  history: {
+    goBack: () => {}
+  }
 }

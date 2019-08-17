@@ -72,16 +72,20 @@ class AddFolder extends Component{
     return(
       <section className="AddFolder">
         <h2>Create a folder</h2>
+        <div className='registration__hint'>* required field</div>
         <form className="AddFolder__form" onSubmit={this.handleSubmit}>
           <div className="AddFolder__field">
-            <label htmlFor="AddFolder__name-input">Name</label>
+            <label htmlFor="AddFolder__name-input">Name*</label>
             <input 
               type="text" 
               id="name" 
               name='folder-name' 
               onChange={e => this.updateName(e.target.value)}
-              onBlur={this.handleBlurName}/>
-            <ValidationError message={nameError} />
+              onBlur={this.handleBlurName}
+              aria-label='Name' 
+              aria-required='true' 
+              aria-describedby='name-error'/>
+            <ValidationError id='name-error' message={nameError} />
           </div>
           <div className="AddFolder__button">
             <button type="submit"

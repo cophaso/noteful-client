@@ -58,3 +58,7 @@
   background-color: #cacacac1;
   pointer-events:none;
 }
+
+.error{
+  color: red;
+}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import NotefulContext from '../NotefulContext';
 import './AddFolder.css';
 import PropTypes from 'prop-types';
+import ValidationError from '../validationError';
 
 class AddFolder extends Component{
   static defaultProps = {
@@ -10,6 +11,35 @@ class AddFolder extends Component{
     },
   }
   static contextType = NotefulContext;
+
+  state ={
+    name: {
+      value: '',
+      touched: false
+    }
+  }
+
+  updateName(name) {
+    this.setState({ 
+      name: { 
+       value: name, 
+       touched: true 
+      } 
+    });
+  }
+
+  validateName() {
+    const name = this.state.name.value.trim();
+    if (name.length === 0 && this.state.name.touched === true) {
+      return "Name is required";
+    }
+  }
+
+  handleBlurName = () => {
+    this.setState({
+      name: { ...this.state.name, touched: true }
+    });
+  };
 
   handleSubmit = e => {
     e.preventDefault()
@@ -38,16 +68,27 @@ class AddFolder extends Component{
   }
 
   render(){
+    const nameError = this.validateName();
     return(
       <section className="AddFolder">
         <h2>Create a folder</h2>
         <form className="AddFolder__form" onSubmit={this.handleSubmit}>
           <div className="AddFolder__field">
             <label htmlFor="AddFolder__name-input">Name</label>
-            <input type="text" id="name" name='folder-name' required/>
+            <input 
+              type="text" 
+              id="name" 
+              name='folder-name' 
+              onChange={e => this.updateName(e.target.value)}
+              onBlur={this.handleBlurName}/>
+            <ValidationError message={nameError} />
           </div>
           <div className="AddFolder__button">
-            <button type="submit">Add folder</button>
+            <button type="submit"
+              disabled={
+                !this.state.name.value
+              }
+              >Add folder</button>
           </div>
         </form>
       </section>

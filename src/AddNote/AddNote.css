@@ -52,3 +52,9 @@
   background-color: #29862e;
   color: white;
 }
+
+.AddNote__button button:disabled {
+  color: #cacaca;
+  background-color: #cacacac1;
+  pointer-events:none;
+}

@@ -8,6 +8,7 @@ import NotefulContext from './NotefulContext';
 import AddFolder from './AddFolder/AddFolder';
 import NotePageNav from './NotePageNav/NotePageNav';
 import AddNote from './AddNote/AddNote';
+import ErrorBoundary from './ErrorBoundary';
 
 class App extends Component {
   state = {
@@ -73,7 +74,10 @@ class App extends Component {
                   exact
                   key={path}
                   path={path}
-                  component={FolderListNav}
+                  render = {() => 
+                    <ErrorBoundary>
+                      <FolderListNav/>
+                    </ErrorBoundary> }
                 />
               ))}
               {['/add-folder', '/add-note', '/note/:id'].map(path => (
@@ -86,9 +90,9 @@ class App extends Component {
               ))}
             </Switch>     
           </nav>
-          <header className="App__header">
-            <h1><Link to='/'>Noteful</Link></h1>
-          </header>
+        <header className="App__header">
+          <h1><Link to='/'>Noteful</Link></h1>
+        </header>
           <main className="App__main" aria-live='polite'>
             <Switch>
               {['/', '/folder/:folderId'].map(path => (

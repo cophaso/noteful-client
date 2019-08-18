@@ -4,6 +4,7 @@ import NotefulContext from '../NotefulContext';
 import { NavLink } from 'react-router-dom';
 import './NoteList.css';
 import PropTypes from 'prop-types';
+import ErrorBoundary from '../ErrorBoundary';
 
 class NoteList extends Component{
   static defaultProps = {
@@ -23,10 +24,12 @@ class NoteList extends Component{
         <section className='NoteList'>
           <ul>
             {list.map(note => 
+            <ErrorBoundary>
             <NoteItem 
               key={note.id}
               {...note}
               />
+              </ErrorBoundary>
             )}
           </ul>
           <div className='NoteList__button-container'>

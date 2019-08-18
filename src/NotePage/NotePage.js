@@ -4,6 +4,7 @@ import './NotePage.css';
 import '../NoteItem/NoteItem.css';
 import NotefulContext from '../NotefulContext';
 import PropTypes from 'prop-types';
+import ErrorBoundary from '../ErrorBoundary';
 
 class NotePage extends Component{
   static defaultProps = {
@@ -22,11 +23,13 @@ class NotePage extends Component{
       <section className='NotePageMain'>
         {list.map((note,i) =>
         <div key={i}>
-          <NoteItem
-            id={note.id}
-            name={note.name}
-            modified={note.modified}
-          />
+          <ErrorBoundary>
+            <NoteItem
+              id={note.id}
+              name={note.name}
+              modified={note.modified}
+            />
+          </ErrorBoundary>
           <div className='NotePageMain__content'>
             {note.content.split(/\n \r|\n/).map((para, i) =>
             <p key={i}>{para}</p>

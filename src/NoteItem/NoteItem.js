@@ -4,7 +4,7 @@ import { format } from 'date-fns';
 import './NoteItem.css';
 import NotefulContext from '../NotefulContext';
 import PropTypes from 'prop-types';
-
+import config from '../config';
 
 
 class NoteItem extends Component {
@@ -18,7 +18,7 @@ class NoteItem extends Component {
     e.preventDefault()
     const noteId = this.props.id
 
-    fetch(`http://localhost:9090/notes/${noteId}`, {
+    fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json'
@@ -38,7 +38,7 @@ class NoteItem extends Component {
       })
   }
   render(){
-    const { name, id, modified } = this.props
+    const { name, id, modified_date } = this.props
     return(
       <li className='Note__Item' key={id}>
         <h2 className='Note__title'>
@@ -58,7 +58,7 @@ class NoteItem extends Component {
             Modified
             {' '}
             <span className='Date'>
-              {format(modified, 'Do MMM YYYY')}
+              {format(modified_date, 'Do MMM YYYY')}
             </span>
           </div>
         </div>
@@ -71,8 +71,8 @@ NoteItem.propTypes ={
   notes: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    modified: PropTypes.string.isRequired,
-    folderId: PropTypes.string.isRequired,
+    modified_date: PropTypes.string.isRequired,
+    folder_id: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired
   }))
 }

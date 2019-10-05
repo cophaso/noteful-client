@@ -4,7 +4,7 @@ import './NotePage.css';
 import '../NoteItem/NoteItem.css';
 import NotefulContext from '../NotefulContext';
 import PropTypes from 'prop-types';
-import ErrorBoundary from '../ErrorBoundary';
+// import ErrorBoundary from '../ErrorBoundary';
 
 class NotePage extends Component{
   static defaultProps = {
@@ -18,18 +18,18 @@ class NotePage extends Component{
   render() {
     const { id }= this.props.match.params
     const { notes } = this.context
-    const list = notes.filter(note => note.id === id)
+    const list = notes.filter(note => note.id.toString() === id)
     return (
       <section className='NotePageMain'>
         {list.map((note,i) =>
         <div key={i}>
-          <ErrorBoundary>
+          {/* <ErrorBoundary> */}
             <NoteItem
               id={note.id}
               name={note.name}
-              modified={note.modified}
+              modified_date={note.modified_date}
             />
-          </ErrorBoundary>
+          {/* </ErrorBoundary> */}
           <div className='NotePageMain__content'>
             {note.content.split(/\n \r|\n/).map((para, i) =>
             <p key={i}>{para}</p>
@@ -46,8 +46,8 @@ NotePage.propTypes ={
   notes: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    modified: PropTypes.string.isRequired,
-    folderId: PropTypes.string.isRequired,
+    modified_date: PropTypes.string.isRequired,
+    folder_id: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired
   }))
 }

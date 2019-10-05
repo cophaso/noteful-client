@@ -5,7 +5,7 @@ import './FolderListNav.css';
 import PropTypes from 'prop-types';
 
 const countNotesForFolder = (notes=[], folderId) =>
-  notes.filter(note => note.folderId === folderId).length
+  notes.filter(note => note.folder_id === folderId).length
 
 class FolderListNav extends Component {
   static contextType = NotefulContext;
@@ -47,8 +47,8 @@ FolderListNav.propTypes ={
   notes: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    modified: PropTypes.string.isRequired,
-    folderId: PropTypes.string.isRequired,
+    modified_date: PropTypes.string.isRequired,
+    folder_id: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired
   }))
 }

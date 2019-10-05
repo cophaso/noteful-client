@@ -8,7 +8,8 @@ import NotefulContext from './NotefulContext';
 import AddFolder from './AddFolder/AddFolder';
 import NotePageNav from './NotePageNav/NotePageNav';
 import AddNote from './AddNote/AddNote';
-import ErrorBoundary from './ErrorBoundary';
+// import ErrorBoundary from './ErrorBoundary';
+import config from './config';
 
 class App extends Component {
   state = {
@@ -18,8 +19,8 @@ class App extends Component {
 
   componentDidMount() {
     Promise.all([
-      fetch(`http://localhost:9090/notes`),
-      fetch(`http://localhost:9090/folders`)
+      fetch(`${config.API_ENDPOINT}/notes`),
+      fetch(`${config.API_ENDPOINT}/folders`)
     ])
     .then(([notesRes, foldersRes]) => {
         if (!notesRes.ok)
@@ -75,9 +76,10 @@ class App extends Component {
                   key={path}
                   path={path}
                   render = {() => 
-                    <ErrorBoundary>
+                    // <ErrorBoundary>
                       <FolderListNav/>
-                    </ErrorBoundary> }
+                    // </ErrorBoundary> 
+                  }
                 />
               ))}
               {['/add-folder', '/add-note', '/note/:id'].map(path => (

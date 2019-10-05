@@ -3,6 +3,7 @@ import NotefulContext from '../NotefulContext';
 import ValidationError from '../validationError';
 import './AddNote.css';
 import PropTypes from 'prop-types';
+import config from '../config';
 
 
 class AddNote extends Component{
@@ -73,12 +74,12 @@ class AddNote extends Component{
     e.preventDefault()
     const note = {
       name: e.target['note-name'].value,
-      modified: new Date(),
-      folderId: e.target['note-folder-id'].value,
+      modified_date: new Date(),
+      folder_id: e.target['note-folder-id'].value,
       content: e.target['note-content'].value
     }
 
-    fetch(`http://localhost:9090/notes`, {
+    fetch(`${config.API_ENDPOINT}/notes`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
@@ -165,8 +166,8 @@ AddNote.propTypes ={
   notes: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    modified: PropTypes.string.isRequired,
-    folderId: PropTypes.string.isRequired,
+    modified_date: PropTypes.string.isRequired,
+    folder_id: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired
   }))
 }

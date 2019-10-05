@@ -3,6 +3,7 @@ import NotefulContext from '../NotefulContext';
 import './AddFolder.css';
 import PropTypes from 'prop-types';
 import ValidationError from '../validationError';
+import config from '../config';
 
 class AddFolder extends Component{
   static defaultProps = {
@@ -46,7 +47,7 @@ class AddFolder extends Component{
     const folder = {
       name: e.target['folder-name'].value
     }
-    fetch(`http://localhost:9090/folders`, {
+    fetch(`${config.API_ENDPOINT}/folders`, {
       method: 'POST',
       headers: {
         'content-type': 'application/json'
